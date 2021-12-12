@@ -2,7 +2,7 @@
 
 ## Деплой
 
-Чтобы поднять сервер и базу: (необходим [docker-compose V2](https://github.com/docker/compose/tree/v2))
+Необходим [docker-compose V2](https://github.com/docker/compose/tree/v2).
 ```shell
 make
 ```
