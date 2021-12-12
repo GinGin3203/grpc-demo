@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  db_postgres:
+    image: "postgres:10-alpine"
+    container_name: pg
+    environment:
+      - POSTGRES_PASSWORD=example
+    ports:
+      - "5432:5432"
+  users_service:
+    container_name: users_service
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db_postgres

@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+package users;
+
+option go_package = "./proto";
+
+enum Role {
+  USER = 0;
+  MODERATOR = 1;
+  ADMIN = 2;
+}
+
+
+message UserID {
+  int32 id = 1;
+}
+
+message UserResponse {
+  UserID uid = 1;
+  Role role = 2;
+  string name = 3;
+  google.protobuf.Timestamp last_updated_at = 4;
+}
+
+message UserCreationRequest {
+  Role role = 1;
+  string name = 2;
+}
+
+message UserChangeRoleRequest {
+  UserID uid = 1;
+  Role new_role = 2;
+}
+
+message UserResponseList {
+  repeated UserResponse users = 1;
+}
+
+service UsersService {
+  rpc AddUser(UserCreationRequest) returns (UserResponse);
+  rpc DeleteUser(UserID) returns (UserResponse);
+  rpc ChangeUserRole(UserChangeRoleRequest) returns (UserResponse);
+  rpc GetUser(UserID) returns (UserResponse);
+  rpc GetAllUsers(google.protobuf.Empty) returns (UserResponseList);
+}
